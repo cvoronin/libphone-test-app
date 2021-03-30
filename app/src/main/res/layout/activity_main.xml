@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="phoneData"
+            type="ru.cvoronin.libphone.FormattedPhoneNumber" />
+
+        <variable
+            name="regionListner"
+            type="ru.cvoronin.libphone.RegionListener" />
+
+        <variable
+            name="asYouType"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:inputType="phone"
+            android:lines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText">
+
+            <RadioGroup
+                android:id="@+id/countryGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editText">
+
+                <RadioButton
+                    android:id="@+id/ru"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick='@{() -> regionListner.onRegionSelected("RU")}'
+                    android:paddingEnd="8dp"
+                    android:text="Россия" />
+
+                <RadioButton
+                    android:id="@+id/kz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> regionListner.onRegionSelected("KZ")}'
+                    android:paddingEnd="8dp"
+                    android:text="Казахстан" />
+
+                <RadioButton
+                    android:id="@+id/by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> regionListner.onRegionSelected("BY")}'
+                    android:paddingEnd="8dp"
+                    android:text="Беларусь" />
+
+                <RadioButton
+                    android:id="@+id/ch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> regionListner.onRegionSelected("CN")}'
+                    android:paddingEnd="8dp"
+                    android:text="Китай" />
+
+                <RadioButton
+                    android:id="@+id/usa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> regionListner.onRegionSelected("US")}'
+                    android:paddingEnd="8dp"
+                    android:text="США" />
+
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/internationalTitle"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="INTERNATIONAL:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollView" />
+
+        <TextView
+            android:id="@+id/internationalValue"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="monospace"
+            android:text="@{phoneData.international}"
+            app:layout_constraintBaseline_toBaselineOf="@id/internationalTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/internationalTitle"
+            tools:text="international value" />
+
+
+        <TextView
+            android:id="@+id/nationalTitle"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="NATIONAL:"
+            app:layout_constraintEnd_toEndOf="@id/internationalTitle"
+            app:layout_constraintStart_toStartOf="@id/internationalTitle"
+            app:layout_constraintTop_toBottomOf="@id/internationalTitle" />
+
+        <TextView
+            android:id="@+id/nationalValue"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="monospace"
+            android:text="@{phoneData.national}"
+            app:layout_constraintBaseline_toBaselineOf="@id/nationalTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nationalTitle"
+            tools:text="national value" />
+
+
+        <TextView
+            android:id="@+id/e164Title"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="E164:"
+            app:layout_constraintEnd_toEndOf="@id/internationalTitle"
+            app:layout_constraintStart_toStartOf="@id/internationalTitle"
+            app:layout_constraintTop_toBottomOf="@id/nationalTitle" />
+
+        <TextView
+            android:id="@+id/e164Value"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="monospace"
+            android:text="@{phoneData.e164}"
+            app:layout_constraintBaseline_toBaselineOf="@id/e164Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/e164Title"
+            tools:text="e164 value" />
+
+
+        <TextView
+            android:id="@+id/RFC3966Title"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="RFC3966:"
+            app:layout_constraintEnd_toEndOf="@id/internationalTitle"
+            app:layout_constraintStart_toStartOf="@id/internationalTitle"
+            app:layout_constraintTop_toBottomOf="@id/e164Title" />
+
+        <TextView
+            android:id="@+id/RFC3966Value"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="monospace"
+            android:text="@{phoneData.RFC3966}"
+            app:layout_constraintBaseline_toBaselineOf="@id/RFC3966Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/RFC3966Title"
+            tools:text="RFC3966 value" />
+
+        <TextView
+            android:id="@+id/asYouTypeTitle"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end"
+            android:text="AS YOU TYPE:"
+            app:layout_constraintEnd_toEndOf="@id/internationalTitle"
+            app:layout_constraintStart_toStartOf="@id/internationalTitle"
+            app:layout_constraintTop_toBottomOf="@id/RFC3966Title" />
+
+        <TextView
+            android:id="@+id/asYouTypeValue"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="monospace"
+            android:text="@{asYouType}"
+            app:layout_constraintBaseline_toBaselineOf="@id/asYouTypeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/RFC3966Title"
+            tools:text="As you type value" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
